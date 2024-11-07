@@ -7,20 +7,32 @@ public class RockPaperScissors {
         Random random = new Random();
         
         String[] options = {"Rock", "Paper", "Scissors"};
+        int userScore = 0;
+        int computerScore = 0;
         
-        System.out.println("Being alone and bored? \n Don't worry!!\n  Welcome to Rock, Paper, Scissors!");
-        System.out.println("Enter your choice (Rock , Paper , or Scissors). Type 'exit' to quit.");
+        System.out.println("Welcome to Rock, Paper, Scissors!");
+        System.out.println("Enter your choice (Rock, Paper, or Scissors). Type 'exit' to quit.");
 
         while (true) {
             System.out.print("Your turn: ");
             String userChoice = scanner.nextLine();
 
             if (userChoice.equalsIgnoreCase("exit")) {
-                System.out.println("Thanks for playing!");
+                System.out.println("\nGame Over!");
+                System.out.println("Final Score:");
+                System.out.println("User: " + userScore + " | Computer: " + computerScore);
+
+                if (userScore > computerScore) {
+                    System.out.println("Congratulations! You won the game!");
+                } else if (computerScore > userScore) {
+                    System.out.println("Computer wins! Better luck next time.");
+                } else {
+                    System.out.println("It's a tie overall!");
+                }
                 break;
             }
             
-            int computerChoiceIndex = random.nextInt(3); // 0, 1, or 2
+            int computerChoiceIndex = random.nextInt(3);
             String computerChoice = options[computerChoiceIndex];
             
             System.out.println("Computer chose: " + computerChoice);
@@ -30,15 +42,17 @@ public class RockPaperScissors {
             } else if ((userChoice.equalsIgnoreCase("Rock") && computerChoice.equals("Scissors")) ||
                        (userChoice.equalsIgnoreCase("Paper") && computerChoice.equals("Rock")) ||
                        (userChoice.equalsIgnoreCase("Scissors") && computerChoice.equals("Paper"))) {
-                System.out.println("You win!");
+                System.out.println("You win this round!");
+                userScore++;
             } else if ((userChoice.equalsIgnoreCase("Rock") && computerChoice.equals("Paper")) ||
                        (userChoice.equalsIgnoreCase("Paper") && computerChoice.equals("Scissors")) ||
                        (userChoice.equalsIgnoreCase("Scissors") && computerChoice.equals("Rock"))) {
-                System.out.println("You lose!");
+                System.out.println("Computer wins this round!");
+                computerScore++;
             } else {
                 System.out.println("Invalid input, please enter Rock, Paper, or Scissors.");
             }
-            System.out.println(); 
+            System.out.println(); // Blank line for readability
         }
         
         scanner.close();
